@@ -1,0 +1,110 @@
+/*文章的整体背景，渐变色设置*/
+/* background：颜色(16进制,rgba-透明度)，渐变色(浏览器,方向,颜色,占比)，动态渐变色，图片,图片+渐变*/
+
+
+/* #aside-content>.card-info
+#aside-content>.card-announcement
+#aside-content>.sticky_layout>.card-widget
+.layout>#post
+.layout>#page
+.layout>#archive */
+/* #web_bg {
+	background: #FFEFBA;
+	background: rgba(255, 255, 255, .6);
+	background: linear-gradient(to top, #fff1eb 0%, #ace0f9 100%);
+	/* fallback for old browsers */
+	/* background: -webkit-linear-gradient(to right, #FFFFFF, #FFEFBA); */
+	/* Chrome 10-25, Safari 5.1-6 */
+	/* background: linear-gradient(to right, #FFFFFF, #FFEFBA); */
+	/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+/* } */ 
+/* >.toc>.toc-level-1 */
+
+#he-plugin-simple[data-v-41ba7e2c] {
+    font-family: 'LXGWWenKai-Bold';
+}
+
+#aside-content #card-toc .toc-content {
+    margin: 0px -110px;
+}
+
+#aside-content #card-toc .toc-content > * {
+    margin: 0 104px !important;
+}
+
+#aside-content>.sticky_layout>.card-recent-post{
+	background:linear-gradient(45deg, #ffffff, #CAEADD);
+}
+
+#web_bg {
+	/* background: linear-gradient(-45deg, #ff9800, #ff1961, #1fa2ff, #24c69e, #9c27b0); */
+	background: linear-gradient(-45deg, #f8ba5c, #fa97b7, #6cc2ff, #74f3d3, #f0a7fd);
+	/* background: linear-gradient(-45deg,#f6ff00, #00b4ff, #00ffbe, #ff00e0, #ff007e, #00b4ff); */
+    /* background: linear-gradient(-45deg, #eb9d85, #ecacc4, #a1d8eb, #b3f8e8); */
+	/* filter: blur(5px); */
+    background-size: 400% 400%;
+    animation: Gradient 15s ease infinite;
+}
+
+.cardHover, .error404 #error-wrap .error-content, .layout > div:first-child:not(.recent-posts), #recent-posts > .recent-post-item, #aside-content .card-widget, .layout > .recent-posts .pagination > *:not(.space) {
+    border-radius: 18px;
+}
+
+/* 侧边栏个人信息卡片动态渐变色 */
+#aside-content>.card-info{
+	background: linear-gradient(-45deg,
+			/* #e8d8b9, */
+            #ffffff,
+			#f0c8dd,
+			#CAEADD,
+			#4bb8f7,
+			#b7a9f2);
+	/* box-shadow: 0 0 5px rgb(66, 68, 68); */
+	position: relative;
+	background-size: 400% 400%;
+	-webkit-animation: Gradient 10s ease infinite;
+	-moz-animation: Gradient 10s ease infinite;
+	animation: Gradient 10s ease infinite !important;
+}
+
+@-webkit-keyframes Gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+
+	50% {
+		background-position: 100% 50%;
+	}
+
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+@-moz-keyframes Gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+
+	50% {
+		background-position: 100% 50%;
+	}
+
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+@keyframes Gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+
+	50% {
+		background-position: 100% 50%;
+	}
+
+	100% {
+		background-position: 0% 50%;
+	}
+}
