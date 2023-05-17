@@ -20,6 +20,10 @@
 /* } */ 
 /* >.toc>.toc-level-1 */
 
+#article-container .flink .flink-list > .flink-list-item a .flink-item-icon {
+    border-radius: 0px;
+}
+
 #article-container figure.gallery-group {
     border-radius: 24px;
 }
