@@ -1,0 +1,242 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>贝叶斯优化RBF神经网络 | Polaris</title><meta name="author" content="薛定谔的喵"><meta name="copyright" content="薛定谔的喵"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="对RBF神经网络进行贝叶斯优化，然后构建预测模型">
+<meta property="og:type" content="article">
+<meta property="og:title" content="贝叶斯优化RBF神经网络">
+<meta property="og:url" content="https://cowizardry.github.io/2023/04/04/%E8%B4%9D%E5%8F%B6%E6%96%AF%E4%BC%98%E5%8C%96RBF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/index.html">
+<meta property="og:site_name" content="Polaris">
+<meta property="og:description" content="对RBF神经网络进行贝叶斯优化，然后构建预测模型">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cowizardry.github.io/img/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.jpeg">
+<meta property="article:published_time" content="2023-04-03T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-04-03T16:00:00.000Z">
+<meta property="article:author" content="薛定谔的喵">
+<meta property="article:tag" content="神经网络">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cowizardry.github.io/img/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.jpeg"><link rel="shortcut icon" href="/img/logo.png"><link rel="canonical" href="https://cowizardry.github.io/2023/04/04/%E8%B4%9D%E5%8F%B6%E6%96%AF%E4%BC%98%E5%8C%96RBF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 薛定谔的喵","link":"链接: ","source":"来源: Polaris","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '贝叶斯优化RBF神经网络',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-04-04 00:00:00'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/myStyle.css"><link rel="stylesheet" href="/css/iconfont.css"><link rel="stylesheet" href="/css/font.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/%E8%96%9B%E5%AE%9A%E8%B0%94%E7%9A%84%E5%96%B5.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">4</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-weibiaoti-"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili1"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw iconfont icon-wenzhang"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw iconfont icon-fenlei"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw iconfont icon-biaoqian2"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw iconfont icon-yule"></i><span> 休闲</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw iconfont icon-zhaopian"></i><span> 图片</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw iconfont icon-yinle"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/video/"><i class="fa-fw iconfont icon-shipin1"></i><span> 视频</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw iconfont icon-lianjie1"></i><span> 外链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-guanyuwomen"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.jpeg')"><nav id="nav"><span id="blog-info"><a href="/" title="Polaris"><img class="site-icon" src="/img/logo.png"/><span class="site-name">Polaris</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-weibiaoti-"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili1"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw iconfont icon-wenzhang"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw iconfont icon-fenlei"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw iconfont icon-biaoqian2"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw iconfont icon-yule"></i><span> 休闲</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw iconfont icon-zhaopian"></i><span> 图片</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw iconfont icon-yinle"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/video/"><i class="fa-fw iconfont icon-shipin1"></i><span> 视频</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw iconfont icon-lianjie1"></i><span> 外链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-guanyuwomen"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">贝叶斯优化RBF神经网络<a class="post-edit-link" href="https://github.com/CoWizardry/CoWizardry.github.io_posts/贝叶斯优化RBF神经网络.md" title="编辑" target="_blank"><i class="fas fa-pencil-alt"></i></a></h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2023-04-03T16:00:00.000Z" title="发表于 2023-04-04 00:00:00">2023-04-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>9分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="贝叶斯优化RBF神经网络"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="贝叶斯优化RBF神经网络"><a href="#贝叶斯优化RBF神经网络" class="headerlink" title="贝叶斯优化RBF神经网络"></a>贝叶斯优化RBF神经网络</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>径向基函数（RBF）神经网络是一种常用的神经网络结构，可以用于解决分类、回归和聚类等问题。与传统的前馈神经网络不同，RBF网络的隐藏层神经元的激活函数使用径向基函数，而不是sigmoid函数或ReLU函数。</p>
+<p>贝叶斯优化是一种优化算法，可以用于求解黑盒函数的最优解。在神经网络中，贝叶斯优化可以用于调整神经网络的超参数，如学习率、正则化参数等。</p>
+<p>本文将介绍如何使用贝叶斯优化来优化RBF神经网络的超参数，以获得更好的性能。</p>
+<h2 id="RBF神经网络"><a href="#RBF神经网络" class="headerlink" title="RBF神经网络"></a>RBF神经网络</h2><p>RBF神经网络由三层组成：输入层、隐藏层和输出层。输入层接收原始数据，隐藏层使用径向基函数将输入映射到高维空间，输出层使用线性函数将隐藏层的输出映射到目标空间。</p>
+<p>隐藏层的径向基函数通常采用高斯函数：</p>
+<script type="math/tex; mode=display">
+\phi(x) = e^{-\frac{\|x-c\|^2}{2\sigma^2}}</script><p>其中 $x$ 是输入数据，$c$ 是径向基函数中心，$\sigma$ 是径向基函数宽度。对于给定的数据集，通常需要使用聚类算法来确定径向基函数的中心。</p>
+<p>输出层的线性函数可以写成如下形式：</p>
+<script type="math/tex; mode=display">
+y(x) = \sum_{i=1}^{k}\omega_i\phi(\|x-c_i\|)</script><p>其中 $k$ 是隐藏层神经元的个数，$\omega_i$ 是权重。</p>
+<p>RBF神经网络的训练可以分为两个步骤。第一步是确定径向基函数的中心和宽度，可以使用聚类算法和交叉验证来选择最优的参数。第二步是确定网络的权重，可以使用线性回归或梯度下降等算法来训练。</p>
+<h2 id="贝叶斯优化"><a href="#贝叶斯优化" class="headerlink" title="贝叶斯优化"></a>贝叶斯优化</h2><p>贝叶斯优化是一种基于贝叶斯定理的优化算法，可以用于求解黑盒函数的最优解。贝叶斯优化使用高斯过程模型来拟合目标函数的先验分布，根据先验分布和已知的数据点来更新后验分布，然后使用后验分布来选择下一个采样点。通过迭代这个过程，贝叶斯优化可以逐步逼近目标函数的最优解。</p>
+<p>贝叶斯优化通常需要定义三个部分：</p>
+<h3 id="目标函数"><a href="#目标函数" class="headerlink" title="目标函数"></a>目标函数</h3><p>目标函数是需要优化的黑盒函数，通常不能直接观测或解析求解。在神经网络中，目标函数可以是模型在验证集上的性能指标，如分类准确率、回归误差等。</p>
+<h3 id="先验分布"><a href="#先验分布" class="headerlink" title="先验分布"></a>先验分布</h3><p>先验分布是目标函数的概率分布，表示我们对目标函数的先验知识或假设。在贝叶斯优化中，通常假设目标函数是高斯过程，即任意两个点之间的函数值的协方差可以用一个协方差函数表示。高斯过程可以表示为一个均值函数和一个协方差函数的组合，其中均值函数通常被设置为常数或零函数，协方差函数可以是常用的一些函数，如Matern核函数、RBF核函数等。</p>
+<h3 id="采样策略"><a href="#采样策略" class="headerlink" title="采样策略"></a>采样策略</h3><p>采样策略是选择下一个采样点的策略，通常是基于后验分布的期望值和方差来选择。常见的采样策略包括最大化期望改进（Expected Improvement，EI）、置信区间（Confidence Bound，CB）等。</p>
+<h2 id="贝叶斯优化RBF神经网络-1"><a href="#贝叶斯优化RBF神经网络-1" class="headerlink" title="贝叶斯优化RBF神经网络"></a>贝叶斯优化RBF神经网络</h2><p>贝叶斯优化可以用于调整RBF神经网络的超参数，如径向基函数的中心和宽度、隐藏层神经元的个数等。具体地，我们可以将目标函数设置为在验证集上的性能指标，如分类准确率或回归误差，然后使用贝叶斯优化来寻找最优的超参数组合。</p>
+<p>在使用贝叶斯优化时，我们需要定义目标函数、先验分布和采样策略。具体地，我们可以使用交叉验证来计算目标函数的值，使用高斯过程来建模目标函数的先验分布，使用EI或CB等采样策略来选择下一个采样点。</p>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pickle</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> mean_squared_error</span><br><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> StandardScaler</span><br><span class="line"><span class="keyword">from</span> sklearn.neural_network <span class="keyword">import</span> MLPRegressor</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> cross_val_score</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> learning_curve</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"><span class="keyword">from</span> hyperopt <span class="keyword">import</span> fmin, tpe, hp, STATUS_OK, Trials</span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> preprocessing</span><br><span class="line"><span class="keyword">from</span> sklearn.decomposition <span class="keyword">import</span> PCA</span><br><span class="line"></span><br><span class="line"><span class="comment"># 加载训练集和预测集</span></span><br><span class="line">train_df = pd.read_csv(<span class="string">&#x27;历史数据.csv&#x27;</span>)</span><br><span class="line">predict_df = pd.read_csv(<span class="string">&#x27;需预测数据.csv&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 处理日期</span></span><br><span class="line">date_columns = [<span class="string">&#x27;order_date&#x27;</span>, <span class="string">&#x27;year&#x27;</span>, <span class="string">&#x27;month&#x27;</span>, <span class="string">&#x27;day&#x27;</span>]</span><br><span class="line"><span class="keyword">for</span> col <span class="keyword">in</span> date_columns:</span><br><span class="line">    train_df[col] = pd.to_datetime(train_df[<span class="string">&#x27;order_date&#x27;</span>])</span><br><span class="line">    predict_df[col] = pd.to_datetime(predict_df[<span class="string">&#x27;order_date&#x27;</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新排列列的顺序</span></span><br><span class="line">new_order = [<span class="string">&#x27;year&#x27;</span>, <span class="string">&#x27;month&#x27;</span>, <span class="string">&#x27;day&#x27;</span>, <span class="string">&#x27;sales_region_code&#x27;</span>, <span class="string">&#x27;item_code&#x27;</span>, <span class="string">&#x27;first_cate_code&#x27;</span>, <span class="string">&#x27;second_cate_code&#x27;</span>, <span class="string">&#x27;ord_qty&#x27;</span>]</span><br><span class="line">train_df = train_df.drop([<span class="string">&#x27;item_price&#x27;</span>, <span class="string">&#x27;order_date&#x27;</span>, <span class="string">&#x27;sales_chan_name&#x27;</span>], axis=<span class="number">1</span>)</span><br><span class="line">predict_df = predict_df.reindex(columns=new_order)</span><br><span class="line">train_df = train_df.reindex(columns=new_order)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 合并数据并进行独热编码</span></span><br><span class="line">df = pd.concat([train_df, predict_df], axis=<span class="number">0</span>, ignore_index=<span class="literal">True</span>)</span><br><span class="line">df = pd.get_dummies(df, columns=[<span class="string">&#x27;sales_region_code&#x27;</span>, <span class="string">&#x27;item_code&#x27;</span>, <span class="string">&#x27;first_cate_code&#x27;</span>, <span class="string">&#x27;second_cate_code&#x27;</span>], prefix=<span class="string">&#x27;cat&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 恢复训练和预测数据</span></span><br><span class="line">train_df = df.head(n=<span class="built_in">len</span>(train_df))</span><br><span class="line">predict_df = df[-<span class="built_in">len</span>(predict_df):]</span><br><span class="line">predict_df = predict_df.drop([<span class="string">&#x27;ord_qty&#x27;</span>], axis=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 数据归一化</span></span><br><span class="line">min_max_scaler = preprocessing.MinMaxScaler()</span><br><span class="line">df0 = min_max_scaler.fit_transform(train_df)</span><br><span class="line">train_df = pd.DataFrame(df0, columns=train_df.columns)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 数据降维</span></span><br><span class="line">X = df.drop(columns=[<span class="string">&#x27;ord_qty&#x27;</span>])</span><br><span class="line">y = df[<span class="string">&#x27;ord_qty&#x27;</span>]</span><br><span class="line">pca = PCA(n_components=<span class="number">0.9</span>)</span><br><span class="line">X = pca.fit_transform(X)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将数据集分成训练集和测试集</span></span><br><span class="line">X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=<span class="number">0.2</span>, random_state=<span class="number">42</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义目标函数</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">objective</span>(<span class="params">params</span>):</span><br><span class="line">    mlp_reg = MLPRegressor(hidden_layer_sizes=(params[<span class="string">&#x27;hidden_layer_size&#x27;</span>], ), activation=params[<span class="string">&#x27;activation&#x27;</span>], solver=params[<span class="string">&#x27;solver&#x27;</span>], alpha=params[<span class="string">&#x27;alpha&#x27;</span>], </span><br><span class="line">                       learning_rate=params[<span class="string">&#x27;learning_rate&#x27;</span>], learning_rate_init=params[<span class="string">&#x27;learning_rate_init&#x27;</span>], power_t=params[<span class="string">&#x27;power_t&#x27;</span>], max_iter=params[<span class="string">&#x27;max_iter&#x27;</span>], shuffle=<span class="literal">True</span>, </span><br><span class="line">                       random_state=<span class="number">42</span>, tol=<span class="number">0.0001</span>, verbose=<span class="literal">False</span>, warm_start=<span class="literal">False</span>, momentum=params[<span class="string">&#x27;momentum&#x27;</span>], nesterovs_momentum=<span class="literal">True</span>, </span><br><span class="line">                       early_stopping=<span class="literal">False</span>, validation_fraction=<span class="number">0.1</span>, beta_1=params[<span class="string">&#x27;beta_1&#x27;</span>], beta_2=params[<span class="string">&#x27;beta_2&#x27;</span>], epsilon=params[<span class="string">&#x27;epsilon&#x27;</span>], n_iter_no_change=<span class="number">10</span>, </span><br><span class="line">                       max_fun=<span class="number">15000</span>)</span><br><span class="line">    mlp_reg.fit(X_train, y_train)</span><br><span class="line">    y_pred = mlp_reg.predict(X_test)</span><br><span class="line">    rmse = mean_squared_error(y_test, y_pred) ** <span class="number">0.5</span></span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="string">&#x27;loss&#x27;</span>: rmse, <span class="string">&#x27;status&#x27;</span>: STATUS_OK&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义超参数的搜索空间</span></span><br><span class="line">space = &#123;</span><br><span class="line">    <span class="string">&#x27;hidden_layer_size&#x27;</span>: hp.choice(<span class="string">&#x27;hidden_layer_size&#x27;</span>, [<span class="number">64</span>, <span class="number">128</span>, <span class="number">256</span>, <span class="number">512</span>]),</span><br><span class="line">    <span class="string">&#x27;activation&#x27;</span>: hp.choice(<span class="string">&#x27;activation&#x27;</span>, [<span class="string">&#x27;identity&#x27;</span>, <span class="string">&#x27;logistic&#x27;</span>, <span class="string">&#x27;tanh&#x27;</span>, <span class="string">&#x27;relu&#x27;</span>]),</span><br><span class="line">    <span class="string">&#x27;solver&#x27;</span>: hp.choice(<span class="string">&#x27;solver&#x27;</span>, [<span class="string">&#x27;adam&#x27;</span>, <span class="string">&#x27;sgd&#x27;</span>, <span class="string">&#x27;lbfgs&#x27;</span>]),</span><br><span class="line">    <span class="string">&#x27;alpha&#x27;</span>: hp.uniform(<span class="string">&#x27;alpha&#x27;</span>, <span class="number">0.0001</span>, <span class="number">0.1</span>),</span><br><span class="line">    <span class="string">&#x27;learning_rate&#x27;</span>: hp.choice(<span class="string">&#x27;learning_rate&#x27;</span>, [<span class="string">&#x27;constant&#x27;</span>, <span class="string">&#x27;invscaling&#x27;</span>, <span class="string">&#x27;adaptive&#x27;</span>]),</span><br><span class="line">    <span class="string">&#x27;learning_rate_init&#x27;</span>: hp.uniform(<span class="string">&#x27;learning_rate_init&#x27;</span>, <span class="number">0.0001</span>, <span class="number">0.1</span>),</span><br><span class="line">    <span class="string">&#x27;power_t&#x27;</span>: hp.uniform(<span class="string">&#x27;power_t&#x27;</span>, <span class="number">0.1</span>, <span class="number">0.9</span>),</span><br><span class="line">    <span class="string">&#x27;max_iter&#x27;</span>: hp.choice(<span class="string">&#x27;max_iter&#x27;</span>, <span class="built_in">range</span>(<span class="number">100</span>, <span class="number">1000</span>)),</span><br><span class="line">    <span class="string">&#x27;momentum&#x27;</span>: hp.uniform(<span class="string">&#x27;momentum&#x27;</span>, <span class="number">0.1</span>, <span class="number">0.9</span>),</span><br><span class="line">    <span class="string">&#x27;beta_1&#x27;</span>: hp.uniform(<span class="string">&#x27;beta_1&#x27;</span>, <span class="number">0.1</span>, <span class="number">0.9</span>),</span><br><span class="line">    <span class="string">&#x27;beta_2&#x27;</span>: hp.uniform(<span class="string">&#x27;beta_2&#x27;</span>, <span class="number">0.1</span>, <span class="number">0.999</span>),</span><br><span class="line">    <span class="string">&#x27;epsilon&#x27;</span>: hp.uniform(<span class="string">&#x27;epsilon&#x27;</span>, <span class="number">1e-8</span>, <span class="number">1e-6</span>),</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义搜索算法和搜索空间</span></span><br><span class="line">trials = Trials()</span><br><span class="line">best = fmin(fn=objective,</span><br><span class="line">            space=space,</span><br><span class="line">            algo=tpe.suggest,</span><br><span class="line">            max_evals=<span class="number">100</span>,</span><br><span class="line">            trials=trials,</span><br><span class="line">            rstate=random.seed(<span class="number">42</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出最佳超参数组合</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;Best hyperparameters: &#x27;</span>, best)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 最优模型训练</span></span><br><span class="line">best_model = MLPRegressor(hidden_layer_sizes=(best[<span class="string">&#x27;hidden_layer_size&#x27;</span>], ), activation=best[<span class="string">&#x27;activation&#x27;</span>], solver=best[<span class="string">&#x27;solver&#x27;</span>], alpha=best[<span class="string">&#x27;alpha&#x27;</span>],</span><br><span class="line">                          learning_rate=best[<span class="string">&#x27;learning_rate&#x27;</span>], learning_rate_init=best[<span class="string">&#x27;learning_rate_init&#x27;</span>], power_t=best[<span class="string">&#x27;power_t&#x27;</span>], max_iter=best[<span class="string">&#x27;max_iter&#x27;</span>], shuffle=<span class="literal">True</span>,</span><br><span class="line">                          random_state=<span class="number">42</span>, tol=<span class="number">0.0001</span>, verbose=<span class="literal">False</span>, warm_start=<span class="literal">False</span>, momentum=best[<span class="string">&#x27;momentum&#x27;</span>], nesterovs_momentum=<span class="literal">True</span>,</span><br><span class="line">                          early_stopping=<span class="literal">False</span>, validation_fraction=<span class="number">0.1</span>, beta_1=best[<span class="string">&#x27;beta_1&#x27;</span>], beta_2=best[<span class="string">&#x27;beta_2&#x27;</span>], epsilon=best[<span class="string">&#x27;epsilon&#x27;</span>], n_iter_no_change=<span class="number">10</span>,</span><br><span class="line">                          max_fun=<span class="number">15000</span>)</span><br><span class="line">best_model.fit(X, y)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 保存模型</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;mlp_reg.pickle&#x27;</span>, <span class="string">&#x27;wb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    pickle.dump(best_model, f)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 交叉验证评估模型</span></span><br><span class="line">scores = cross_val_score(best_model, X, y, cv=<span class="number">5</span>, scoring=<span class="string">&#x27;neg_mean_squared_error&#x27;</span>)</span><br><span class="line">rmse_scores = np.sqrt(-scores)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;交叉验证结果：&#x27;</span>, rmse_scores)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;平均RMSE：&#x27;</span>, rmse_scores.mean())</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;RMSE标准差：&#x27;</span>, rmse_scores.std())</span><br><span class="line"></span><br><span class="line"><span class="comment"># 绘制拟合情况可视化图</span></span><br><span class="line">train_sizes, train_scores, test_scores = learning_curve(best_model, X, y, cv=<span class="number">5</span>, scoring=<span class="string">&#x27;neg_mean_squared_error&#x27;</span>, train_sizes=np.linspace(<span class="number">0.1</span>, <span class="number">1.0</span>, <span class="number">10</span>))</span><br><span class="line">train_rmse_scores = np.sqrt(-train_scores)</span><br><span class="line">test_rmse_scores = np.sqrt(-test_scores)</span><br><span class="line"></span><br><span class="line">train_rmse_mean = np.mean(train_rmse_scores, axis=<span class="number">1</span>)</span><br><span class="line">train_rmse_std = np.std(train_rmse_scores, axis=<span class="number">1</span>)</span><br><span class="line">test_rmse_mean = np.mean(test_rmse_scores, axis=<span class="number">1</span>)</span><br><span class="line">test_rmse_std = np.std(test_rmse_scores, axis=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">plt.plot(train_sizes, train_rmse_mean, <span class="string">&#x27;o-&#x27;</span>, color=<span class="string">&#x27;r&#x27;</span>, label=<span class="string">&#x27;训练集RMSE&#x27;</span>)</span><br><span class="line">plt.plot(train_sizes, test_rmse_mean, <span class="string">&#x27;o-&#x27;</span>, color=<span class="string">&#x27;g&#x27;</span>, label=<span class="string">&#x27;验证集RMSE&#x27;</span>)</span><br><span class="line">plt.fill_between(train_sizes, train_rmse_mean-train_rmse_std, train_rmse_mean+train_rmse_std, alpha=<span class="number">0.1</span>, color=<span class="string">&#x27;r&#x27;</span>)</span><br><span class="line">plt.fill_between(train_sizes, test_rmse_mean-test_rmse_std, test_rmse_mean+test_rmse_std, alpha=<span class="number">0.1</span>, color=<span class="string">&#x27;g&#x27;</span>)</span><br><span class="line">plt.xlabel(<span class="string">&#x27;训练集样本数量&#x27;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&#x27;RMSE&#x27;</span>)</span><br><span class="line">plt.legend(loc=<span class="string">&#x27;best&#x27;</span>)</span><br><span class="line">plt.show()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 预测并保存结果</span></span><br><span class="line">dff = pd.DataFrame(&#123;<span class="string">&quot;ord_qty&quot;</span>: best_model.predict(predict_df)&#125;)</span><br><span class="line">dff.to_csv(<span class="string">&quot;预测结果.csv&quot;</span>, index=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>贝叶斯优化可以用于优化RBF神经网络的超参数，可以帮助我们获得更好的性能。通过定义目标函数、先验分布和采样策略，我们可以使用贝叶斯优化来逐步逼近最优解。</p>
+<p>值得注意的是，贝叶斯优化需要进行多次模型训练和验证，因此可能需要较长的时间。此外，选择合适的先验分布和采样策略也是一个需要注意的问题。</p>
+<p>参考文献：</p>
+<p>[1] Brochu, E., Cora, V. M., &amp; De Freitas, N. (2010). A tutorial on Bayesian optimization of expensive cost functions, with application to active user modeling and hierarchical reinforcement learning. arXiv preprint arXiv:1012.2599.</p>
+<p>[2] 李航. 统计学习方法. 清华大学出版社, 2019.</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://cowizardry.github.io">薛定谔的喵</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://cowizardry.github.io/2023/04/04/%E8%B4%9D%E5%8F%B6%E6%96%AF%E4%BC%98%E5%8C%96RBF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/">https://cowizardry.github.io/2023/04/04/%E8%B4%9D%E5%8F%B6%E6%96%AF%E4%BC%98%E5%8C%96RBF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://cowizardry.github.io" target="_blank">Polaris</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/">神经网络</a></div><div class="post_share"><div class="social-share" data-image="/img/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.jpeg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2023/04/06/%E6%AC%A2%E8%BF%8E%E4%BD%BF%E7%94%A8%20MarkText/" title="欢迎使用 MarkText"><img class="cover" src="/img/markdown.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">欢迎使用 MarkText</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B4%9D%E5%8F%B6%E6%96%AF%E4%BC%98%E5%8C%96RBF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="toc-text">贝叶斯优化RBF神经网络</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RBF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="toc-text">RBF神经网络</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B4%9D%E5%8F%B6%E6%96%AF%E4%BC%98%E5%8C%96"><span class="toc-text">贝叶斯优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%AE%E6%A0%87%E5%87%BD%E6%95%B0"><span class="toc-text">目标函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%88%E9%AA%8C%E5%88%86%E5%B8%83"><span class="toc-text">先验分布</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%87%E6%A0%B7%E7%AD%96%E7%95%A5"><span class="toc-text">采样策略</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B4%9D%E5%8F%B6%E6%96%AF%E4%BC%98%E5%8C%96RBF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-1"><span class="toc-text">贝叶斯优化RBF神经网络</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-text">代码实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AE%BA"><span class="toc-text">结论</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2023 By 薛定谔的喵</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Hi, welcome to my <a href="https://cowizardry.github.io/">blog</a>!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script></div><script src="/js/jquery.js"></script><script src="/js/foot.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

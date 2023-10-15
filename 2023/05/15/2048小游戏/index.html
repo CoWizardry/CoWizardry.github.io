@@ -1,0 +1,432 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>2048小游戏 | Polaris</title><meta name="author" content="薛定谔的喵"><meta name="copyright" content="薛定谔的喵"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="2048游戏规则2048游戏是一款数字拼合游戏，玩家需要通过合并相同数字的方块来达到数字2048并取得最高分数的目标。 游戏界面游戏界面是一个4x4的方格棋盘，初始状态下有两个数字方块，每个方块上的数字为2或4。玩家可以使用方向键（上、下、左、右）控制方块的移动方向。 游戏规则 方向键操作：玩家可以使用方向键控制所有方块向指定方向移动。所有方块在每次操作后，都会朝着操作方向移动到尽可能远的位置，如">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2048小游戏">
+<meta property="og:url" content="https://cowizardry.github.io/2023/05/15/2048%E5%B0%8F%E6%B8%B8%E6%88%8F/index.html">
+<meta property="og:site_name" content="Polaris">
+<meta property="og:description" content="2048游戏规则2048游戏是一款数字拼合游戏，玩家需要通过合并相同数字的方块来达到数字2048并取得最高分数的目标。 游戏界面游戏界面是一个4x4的方格棋盘，初始状态下有两个数字方块，每个方块上的数字为2或4。玩家可以使用方向键（上、下、左、右）控制方块的移动方向。 游戏规则 方向键操作：玩家可以使用方向键控制所有方块向指定方向移动。所有方块在每次操作后，都会朝着操作方向移动到尽可能远的位置，如">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cowizardry.github.io/img/game.jpeg">
+<meta property="article:published_time" content="2023-05-14T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-05-14T16:00:00.000Z">
+<meta property="article:author" content="薛定谔的喵">
+<meta property="article:tag" content="网页游戏">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cowizardry.github.io/img/game.jpeg"><link rel="shortcut icon" href="/img/logo.png"><link rel="canonical" href="https://cowizardry.github.io/2023/05/15/2048%E5%B0%8F%E6%B8%B8%E6%88%8F/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 薛定谔的喵","link":"链接: ","source":"来源: Polaris","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '2048小游戏',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-05-15 00:00:00'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/myStyle.css"><link rel="stylesheet" href="/css/iconfont.css"><link rel="stylesheet" href="/css/font.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/%E8%96%9B%E5%AE%9A%E8%B0%94%E7%9A%84%E5%96%B5.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">4</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-weibiaoti-"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili1"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw iconfont icon-wenzhang"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw iconfont icon-fenlei"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw iconfont icon-biaoqian2"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw iconfont icon-yule"></i><span> 休闲</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw iconfont icon-zhaopian"></i><span> 图片</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw iconfont icon-yinle"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/video/"><i class="fa-fw iconfont icon-shipin1"></i><span> 视频</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw iconfont icon-lianjie1"></i><span> 外链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-guanyuwomen"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/game.jpeg')"><nav id="nav"><span id="blog-info"><a href="/" title="Polaris"><img class="site-icon" src="/img/logo.png"/><span class="site-name">Polaris</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-weibiaoti-"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili1"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw iconfont icon-wenzhang"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw iconfont icon-fenlei"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw iconfont icon-biaoqian2"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw iconfont icon-yule"></i><span> 休闲</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw iconfont icon-zhaopian"></i><span> 图片</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw iconfont icon-yinle"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/video/"><i class="fa-fw iconfont icon-shipin1"></i><span> 视频</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw iconfont icon-lianjie1"></i><span> 外链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-guanyuwomen"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">2048小游戏<a class="post-edit-link" href="https://github.com/CoWizardry/CoWizardry.github.io_posts/2048小游戏.md" title="编辑" target="_blank"><i class="fas fa-pencil-alt"></i></a></h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2023-05-14T16:00:00.000Z" title="发表于 2023-05-15 00:00:00">2023-05-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BD%91%E9%A1%B5%E6%B8%B8%E6%88%8F/">网页游戏</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="2048小游戏"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="2048游戏规则"><a href="#2048游戏规则" class="headerlink" title="2048游戏规则"></a>2048游戏规则</h1><p>2048游戏是一款数字拼合游戏，玩家需要通过合并相同数字的方块来达到数字2048并取得最高分数的目标。</p>
+<h2 id="游戏界面"><a href="#游戏界面" class="headerlink" title="游戏界面"></a>游戏界面</h2><p>游戏界面是一个4x4的方格棋盘，初始状态下有两个数字方块，每个方块上的数字为2或4。玩家可以使用方向键（上、下、左、右）控制方块的移动方向。</p>
+<h2 id="游戏规则"><a href="#游戏规则" class="headerlink" title="游戏规则"></a>游戏规则</h2><ul>
+<li>方向键操作：玩家可以使用方向键控制所有方块向指定方向移动。所有方块在每次操作后，都会朝着操作方向移动到尽可能远的位置，如果相邻的方块数字相同，则会合并成一个新的方块，并将数字相加。</li>
+<li>数字合并：当两个相同数字的方块合并时，它们的数字会相加得到一个新的方块。例如，两个数字为2的方块合并后得到一个数字为4的方块。</li>
+<li>得分计算：每次合并方块时，合并后的方块数字将被计入玩家的得分。</li>
+<li>游戏目标：玩家的目标是通过合并方块，使得某个方块的数字达到2048。当玩家成功合并得到一个数字为2048的方块时，游戏胜利。</li>
+<li>游戏结束：当棋盘填满方块且没有可合并的相邻方块时，游戏结束。此时会弹出游戏结束提示，显示玩家的得分，并可以重新开始新游戏。</li>
+</ul>
+<h2 id="得分计算"><a href="#得分计算" class="headerlink" title="得分计算"></a>得分计算</h2><p>玩家的得分在游戏进行中会随着合并方块而增加。每次成功合并方块时，被合并的方块上的数字将被计入得分。得分的计算方式是将被合并的方块上的数字相加。</p>
+<h2 id="操作提示"><a href="#操作提示" class="headerlink" title="操作提示"></a>操作提示</h2><ul>
+<li>上方向键：将所有方块向上移动。</li>
+<li>下方向键：将所有方块向下移动。</li>
+<li>左方向键：将所有方块向左移动。</li>
+<li>右方向键：将所有方块向右移动。</li>
+</ul>
+<!-- <!DOCTYPE html> -->
+<html>
+<head>
+    <title>2048 Game</title>
+    <style>
+        .board {
+            width: 268px;
+            height: 268px;
+            border: 1px solid #999;
+            margin: 0 auto;
+            position: relative;
+        }
+        .tile {
+            position: absolute;
+            width: 66px;
+            height: 66px;
+            font-size: 32px;
+            text-align: center;
+            line-height: 66px;
+        }
+        .tile.tile-2 { background-color: #eee4da; color: #776e65; }
+        .tile.tile-4 { background-color: #ede0c8; color: #776e65; }
+        .tile.tile-8 { background-color: #f2b179; color: #f9f6f2; }
+        .tile.tile-16 { background-color: #f59563; color: #f9f6f2; }
+        .tile.tile-32 { background-color: #f67c5f; color: #f9f6f2; }
+        .tile.tile-64 { background-color: #f65e3b; color: #f9f6f2; }
+        .tile.tile-128 { background-color: #edcf72; color: #f9f6f2; }
+        .tile.tile-256 { background-color: #edcc61; color: #f9f6f2; }
+        .tile.tile-512 { background-color: #edc850; color: #f9f6f2; }
+        .tile.tile-1024 { background-color: #edc53f; color: #f9f6f2; }
+        .tile.tile-2048 { background-color: #edc22e; color: #f9f6f2; }
+    </style>
+</head>
+<body>
+    <div class="board"></div>
+    <script>
+        var board = document.querySelector('.board');
+        var cells = [];
+        var score = 0;
+        function initGame() {
+            board.innerHTML = '';
+            cells = [];
+            score = 0;
+            for (var i = 0; i < 4; i++) {
+                cells[i] = [];
+                for (var j = 0; j < 4; j++) {
+                    var cell = document.createElement('div');
+                    cell.className = 'tile';
+                    cell.style.top = i * 67 + 'px';
+                    cell.style.left = j * 67 + 'px';                    
+                    cells[i][j] = cell;
+                    board.appendChild(cell);
+                }
+            }
+            generateNumber();
+            generateNumber();
+        }
+        function generateNumber() {
+            var row = Math.floor(Math.random() * 4);
+            var col = Math.floor(Math.random() * 4);
+            if (cells[row][col].innerHTML === '') {
+                cells[row][col].innerHTML = Math.random() < 0.8 ? '2' : '4';
+                cells[row][col].className = 'tile tile-' + cells[row][col].innerHTML;
+            } else {
+                generateNumber();
+            }
+        }
+        function move(direction) {
+            var moved = false;
+            switch (direction) {
+                case 'up':
+                    // 上移逻辑
+                    for (var j = 0; j < 4; j++) {
+                    for (var i = 1; i < 4; i++) {
+                        if (cells[i][j].innerHTML !== '') {
+                        var row = i;
+                        while (row > 0 && cells[row - 1][j].innerHTML === '') {
+                            cells[row - 1][j].innerHTML = cells[row][j].innerHTML;
+                            cells[row - 1][j].className = cells[row][j].className;
+                            cells[row][j].innerHTML = '';
+                            cells[row][j].className = 'tile';
+                            row--;
+                            moved = true;
+                        }
+                        if (row > 0 && cells[row - 1][j].innerHTML === cells[row][j].innerHTML) {
+                            var mergedValue = parseInt(cells[row - 1][j].innerHTML) + parseInt(cells[row][j].innerHTML);
+                            cells[row - 1][j].innerHTML = mergedValue;
+                            cells[row - 1][j].className = 'tile tile-' + mergedValue;
+                            cells[row][j].innerHTML = '';
+                            cells[row][j].className = 'tile';
+                            score += mergedValue; // 增加得分
+                            moved = true;
+                        }
+                        }
+                    }
+                    }
+                    break;
+                case 'down':
+                    // 下移逻辑
+                    for (var j = 0; j < 4; j++) {
+                    for (var i = 2; i >= 0; i--) {
+                        if (cells[i][j].innerHTML !== '') {
+                        var row = i;
+                        while (row < 3 && cells[row + 1][j].innerHTML === '') {
+                            cells[row + 1][j].innerHTML = cells[row][j].innerHTML;
+                            cells[row + 1][j].className = cells[row][j].className;
+                            cells[row][j].innerHTML = '';
+                            cells[row][j].className = 'tile';
+                            row++;
+                            moved = true;
+                        }
+                        if (row < 3 && cells[row + 1][j].innerHTML === cells[row][j].innerHTML) {
+                            var mergedValue = parseInt(cells[row + 1][j].innerHTML) + parseInt(cells[row][j].innerHTML);
+                            cells[row + 1][j].innerHTML = mergedValue;
+                            cells[row + 1][j].className = 'tile tile-' + mergedValue;
+                            cells[row][j].innerHTML = '';
+                            cells[row][j].className = 'tile';
+                            score += mergedValue; // 增加得分
+                            moved = true;
+                        }
+                        }
+                    }
+                    }
+                    break;
+                case 'left':
+                    // 左移逻辑
+                    for (var i = 0; i < 4; i++) {
+                    for (var j = 1; j < 4; j++) {
+                        if (cells[i][j].innerHTML !== '') {
+                        var col = j;
+                        while (col > 0 && cells[i][col - 1].innerHTML === '') {
+                            cells[i][col - 1].innerHTML = cells[i][col].innerHTML;
+                            cells[i][col - 1].className = cells[i][col].className;
+                            cells[i][col].innerHTML = '';
+                            cells[i][col].className = 'tile';
+                            col--;
+                            moved = true;
+                        }
+                        if (col > 0 && cells[i][col - 1].innerHTML === cells[i][col].innerHTML) {
+                            var mergedValue = parseInt(cells[i][col - 1].innerHTML) + parseInt(cells[i][col].innerHTML);
+                            cells[i][col - 1].innerHTML = mergedValue;
+                            cells[i][col - 1].className = 'tile tile-' + mergedValue;
+                            cells[i][col].innerHTML = '';
+                            cells[i][col].className = 'tile';
+                            score += mergedValue; // 增加得分
+                            moved = true;
+                        }
+                        }
+                    }
+                    }
+                    break;
+                case 'right':
+                    // 右移逻辑
+                    for (var i = 0; i < 4; i++) {
+                    for (var j = 2; j >= 0; j--) {
+                        if (cells[i][j].innerHTML !== '') {
+                        var col = j;
+                        while (col < 3 && cells[i][col + 1].innerHTML === '') {
+                            cells[i][col + 1].innerHTML = cells[i][col].innerHTML;
+                            cells[i][col + 1].className = cells[i][col].className;
+                            cells[i][col].innerHTML = '';
+                            cells[i][col].className = 'tile';
+                            col++;
+                            moved = true;
+                        }
+                        if (col < 3 && cells[i][col + 1].innerHTML === cells[i][col].innerHTML) {
+                            var mergedValue = parseInt(cells[i][col + 1].innerHTML) + parseInt(cells[i][col].innerHTML);
+                            cells[i][col + 1].innerHTML = mergedValue;
+                            cells[i][col + 1].className = 'tile tile-' + mergedValue;
+                            cells[i][col].innerHTML = '';
+                            cells[i][col].className = 'tile';
+                            score += mergedValue; // 增加得分
+                            moved = true;
+                        }
+                        }
+                    }
+                    }
+                    break;
+                    default:
+                        break;
+                }
+            if (moved) {
+                generateNumber();
+                checkGameOver();
+            }
+        }
+        function checkGameOver() {
+            var gameover = true;
+            for (var i = 0; i < 4; i++) {
+                for (var j = 0; j < 4; j++) {
+                    if (cells[i][j].innerHTML === '') {
+                        gameover = false;
+                        break;
+                    }
+                    if (i > 0 && cells[i][j].innerHTML === cells[i - 1][j].innerHTML) {
+                        gameover = false;
+                        break;
+                    }
+                    if (i < 3 && cells[i][j].innerHTML === cells[i + 1][j].innerHTML) {
+                        gameover = false;
+                        break;
+                    }
+                    if (j > 0 && cells[i][j].innerHTML === cells[i][j - 1].innerHTML) {
+                        gameover = false;
+                        break;
+                    }
+                    if (j < 3 && cells[i][j].innerHTML === cells[i][j + 1].innerHTML) {
+                        gameover = false;
+                        break;
+                    }
+                }
+            }
+            if (gameover) {
+                alert('Game Over\nScore: ' + score);
+                initGame();
+            }
+        }
+        initGame();
+        document.addEventListener('keydown', function (event) {
+            event.preventDefault();
+            if (event.key === 'ArrowUp') {
+                move('up');
+            } else if (event.key === 'ArrowDown') {
+                move('down');
+            } else if (event.key === 'ArrowLeft') {
+                move('left');
+            } else if (event.key === 'ArrowRight') {
+                move('right');
+            }
+        });
+    </script>
+</body>
+</html>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://cowizardry.github.io">薛定谔的喵</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://cowizardry.github.io/2023/05/15/2048%E5%B0%8F%E6%B8%B8%E6%88%8F/">https://cowizardry.github.io/2023/05/15/2048%E5%B0%8F%E6%B8%B8%E6%88%8F/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://cowizardry.github.io" target="_blank">Polaris</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%BD%91%E9%A1%B5%E6%B8%B8%E6%88%8F/">网页游戏</a></div><div class="post_share"><div class="social-share" data-image="/img/game.jpeg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/2023/04/07/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" title="动态规划算法"><img class="cover" src="/img/Hippopx%20(2).jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">动态规划算法</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#2048%E6%B8%B8%E6%88%8F%E8%A7%84%E5%88%99"><span class="toc-text">2048游戏规则</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B8%B8%E6%88%8F%E7%95%8C%E9%9D%A2"><span class="toc-text">游戏界面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B8%B8%E6%88%8F%E8%A7%84%E5%88%99"><span class="toc-text">游戏规则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BE%97%E5%88%86%E8%AE%A1%E7%AE%97"><span class="toc-text">得分计算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E6%8F%90%E7%A4%BA"><span class="toc-text">操作提示</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2023 By 薛定谔的喵</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Hi, welcome to my <a href="https://cowizardry.github.io/">blog</a>!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"></div><script src="/js/jquery.js"></script><script src="/js/foot.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

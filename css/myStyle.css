@@ -1,0 +1,228 @@
+/*文章的整体背景，渐变色设置*/
+/* background：颜色(16进制,rgba-透明度)，渐变色(浏览器,方向,颜色,占比)，动态渐变色，图片,图片+渐变*/
+
+
+/* #aside-content>.card-info
+#aside-content>.card-announcement
+#aside-content>.sticky_layout>.card-widget
+.layout>#post
+.layout>#page
+.layout>#archive */
+/* #web_bg {
+	background: #FFEFBA;
+	background: rgba(255, 255, 255, .6);
+	background: linear-gradient(to top, #fff1eb 0%, #ace0f9 100%);
+	/* fallback for old browsers */
+	/* background: -webkit-linear-gradient(to right, #FFFFFF, #FFEFBA); */
+	/* Chrome 10-25, Safari 5.1-6 */
+	/* background: linear-gradient(to right, #FFFFFF, #FFEFBA); */
+	/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+/* } */ 
+/* >.toc>.toc-level-1 */
+
+/* 外链 */
+#article-container .flink .flink-list > .flink-list-item a .flink-item-icon {
+    border-radius: 0px;
+}
+
+/* 图库 */
+#article-container figure.gallery-group {
+    border-radius: 24px;
+}
+
+/* 阴影 */
+html:root{
+	--card-box-shadow: 0 3px 8px 6px rgba(7,17,27,0.07);
+	--card-hover-box-shadow: 0 3px 8px 6px rgba(7,17,27,0.18);
+}
+
+/* 翻页按钮 */
+[data-theme='dark'] #pagination .page-number.current:hover {
+    background-color: var(--btn-hover-color);
+}
+
+#pagination .page-number.current {
+    background-color: var(--btn-bg-page);
+    transition: background-color 0.3s ease-in-out;
+}
+
+#pagination .page-number.current:hover{
+    background-color: var(--btn-hover-color-page);
+}
+
+[data-theme='light']{
+	--light-greyf: #000000b0;
+	--dark-greyf: #ffffff;
+	--btn-hover-color-page: #1571bc;
+	--btn-bg-page: #007ee5;
+}
+
+[data-theme='dark']{
+	--light-greyf: #ffffffb8;
+	--dark-greyf: #000000;
+	--btn-bg-page: #000000b8;
+}
+
+/* 天时分 */
+[data-theme='dark']#span_dt_dt {
+    color: var(--light-greyf);
+}
+
+[data-theme='light']#span_dt_dt {
+    color: var(--dark-greyf);
+}
+
+#footer-wrap a {
+    color: var(--light-greyf);
+}
+
+#footer-wrap {
+    color: var(--light-greyf);
+}
+
+/* 将脚背景设为透明 */
+[data-theme='dark'] #footer:before{
+	background-color: rgba(0,0,0,0);
+}
+
+#footer {
+    background-color: rgba(0,0,0,0);
+}
+
+#footer:before {
+    background-color: rgba(0,0,0,0);
+}
+
+/* 网站logo和名字 */
+#nav .site-name {
+    font-size: 32px;
+    letter-spacing: 4px;
+}
+
+#nav #blog-info .site-icon {
+    margin-right: 12px;
+    height: 40px;
+    vertical-align: -9px;
+}
+
+/* 翻页按钮居中 */
+#pagination {
+	width: 100%;
+	margin: auto;
+  }
+
+/* 菜单字体加粗 */
+div#menus {
+    font-weight: 700 !important;
+}
+
+/* 天气 */
+/* #he-plugin-simple[data-v-41ba7e2c] {
+    font-family: 'LXGWWenKai-Bold';
+	font-weight: 700 !important;
+} */
+
+/* 目录 */
+#aside-content #card-toc .toc-content {
+    margin: 0px -110px;
+}
+
+#aside-content #card-toc .toc-content > * {
+    margin: 0 104px !important;
+}
+
+/* 最新文章卡片 */
+[data-theme=light] #aside-content>.sticky_layout>.card-recent-post{
+	background:linear-gradient(45deg, #ffffff, #CAEADD);
+}
+
+/* 网站信息卡片 */
+/* 未起作用*/
+[data-theme=light] #aside-content>.sticky_layout>.card-webinfo{
+	/* background: url("img/b1.jpg"), */
+	/* filter: blur(5px); */
+	background: rgba(255, 255, 255,0.6);
+}
+
+/*文章的整体背景，渐变色设置*/
+[data-theme=light] #web_bg {
+	/* background: linear-gradient(-45deg, #ff9800, #ff1961, #1fa2ff, #24c69e, #9c27b0); */
+	background: linear-gradient(-45deg, #f8ba5c, #fa97b7, #6cc2ff, #74f3d3, #f0a7fd);
+	/* background: linear-gradient(-45deg,#f6ff00, #00b4ff, #00ffbe, #ff00e0, #ff007e, #00b4ff); */
+    /* background: linear-gradient(-45deg, #eb9d85, #ecacc4, #a1d8eb, #b3f8e8); */
+	/* filter: blur(5px); */
+    background-size: 400% 400%;
+    animation: Gradient 15s ease infinite;
+}
+
+.cardHover, .error404 #error-wrap .error-content, .layout > div:first-child:not(.recent-posts), #recent-posts > .recent-post-item, #aside-content .card-widget, .layout > .recent-posts .pagination > *:not(.space) {
+    border-radius: 18px;
+}
+
+/* #e8d8b9, */
+/* box-shadow: 0 0 5px rgb(66, 68, 68); */
+/* 侧边栏个人信息卡片动态渐变色 */
+[data-theme=light] #aside-content>.card-info{
+	/* background: linear-gradient(-45deg,
+            #ffffff,
+			#b7a9f2,
+			#CAEADD,
+			#4bb8f7,
+			#f0c8dd); */
+	background: linear-gradient(-45deg, #ffffff, #f8ba5c, #fa97b7, #6cc2ff, #74f3d3, #f0a7fd, #4169E1, #7F7FD5, #f0c8dd);
+	position: relative;
+	background-size: 400% 400%;
+	-webkit-animation: Gradient 15s ease infinite;
+	-moz-animation: Gradient 15s ease infinite;
+	animation: Gradient 15s ease infinite !important;
+}
+
+/*白天主题下的配置*/
+/* #aside-content>.card-info::before{
+    background-image: url('/img/13328460825330707.jpeg');
+    background-repeat: no-repeat;
+    background-attachment: inherit;
+    background-size: 100%;
+} */
+
+@-webkit-keyframes Gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+
+	50% {
+		background-position: 100% 50%;
+	}
+
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+@-moz-keyframes Gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+
+	50% {
+		background-position: 100% 50%;
+	}
+
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+@keyframes Gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+
+	50% {
+		background-position: 100% 50%;
+	}
+
+	100% {
+		background-position: 0% 50%;
+	}
+}
